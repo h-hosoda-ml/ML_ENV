@@ -1,0 +1,6 @@
+vim
+curl
+wget
+git
+tmux
+openssh-client
