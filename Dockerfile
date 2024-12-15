@@ -10,13 +10,7 @@ COPY ./requirements_pip.txt ${HOME}
 
 RUN apt-get update \
 	&& apt-get -y upgrade \
-	&& apt-get -y install \
-	git \
-	curl \
-	build-essential \
-	libbz2-dev libreadline-dev libssl-dev zlib1g-dev \
-	libsqlite3-dev libncurses5-dev liblzma-dev \
-	libffi-dev libdb-dev \
+	&& cat requirements_build.txt | xargs apt-get -y install \
 	&& curl https://pyenv.run | /bin/bash
 
 ENV PYENV_ROOT="${HOME}/.pyenv"
