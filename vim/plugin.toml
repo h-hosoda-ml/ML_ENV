@@ -1,0 +1,9 @@
+[[plugins]]
+repo = 'tani/vim-jetpack'
+
+
+[[plugins]]
+repo = 'preservim/nerdtree'
+hook_source = '''
+autocmd VimEnter * NERDTree | wincmd p
+'''
