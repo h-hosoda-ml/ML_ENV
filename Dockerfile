@@ -8,7 +8,6 @@ SHELL ["/bin/bash", "-c"]
 COPY ./.bashrc $HOME
 COPY ./requirements_build.txt $HOME
 COPY ./requirements_pip.txt $HOME
-COPY ./install_vim.sh $HOME
 
 RUN apt-get update \
 	&& apt-get -y upgrade \
@@ -29,7 +28,13 @@ RUN echo 'export PYENV_ROOT="/root/.pyenv"' >> ${HOME}/.bashrc \
 RUN pip install --upgrade pip \
 	&& pip install -r ${HOME}/requirements_pip.txt
 
-RUN bash ${HOME}/install_vim.sh
+RUN cd ${HOME} \
+	&& git clone https://github.com/vim/vim.git \
+	&& cd ${HOME}/vim \
+	&& git pull \
+	&& cd ${HOME}/vim/src \
+	&& make \
+	&& make install 
 
 # 本番環境
 FROM nvidia/cuda:12.2.0-runtime-ubuntu22.04
