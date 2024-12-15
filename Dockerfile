@@ -28,6 +28,13 @@ RUN echo 'export PYENV_ROOT="/root/.pyenv"' >> ${HOME}/.bashrc \
 RUN pip install --upgrade pip \
 	&& pip install -r ${HOME}/requirements_pip.txt
 
+RUN cd ${HOME} \
+	&& git clone https://github.com/vim/vim.git \
+	&& cd ${HOME}/vim \
+	&& git pull \
+	&& cd ${HOME}/vim/src \
+	&& make \
+	&& make install 
 
 # 本番環境
 FROM nvidia/cuda:12.2.0-runtime-ubuntu22.04
@@ -46,6 +53,9 @@ COPY ./requirements_runtime.txt /workdir
 # build環境から
 COPY --from=builder /root/.bashrc ${HOME}/.bashrc
 COPY --from=builder /root/.pyenv /root/.pyenv
+COPY --from=builder /usr/local/bin/vim /usr/local/bin/vim
+COPY --from=builder /usr/local/share/vim /usr/local/share/vim
+COPY --from=builder /usr/local/man /usr/local/man
 
 RUN apt-get update \
 	&& apt-get -y upgrade \
