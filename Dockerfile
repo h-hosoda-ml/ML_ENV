@@ -62,4 +62,8 @@ RUN apt-get update \
 	&& cat ${HOME}/requirements_runtime.txt | xargs apt-get -y install \
 	&& source ${HOME}/.bashrc
 
+RUN curl -fLo ${HOME}/.vim/pack/jetpack/opt/vim-jetpack/plugin/jetpack.vim --create-dirs https://raw.githubusercontent.com/tani/vim-jetpack/master/plugin/jetpack.vim
+COPY ./vim/vimrc ${HOME}/.vim/
+COPY ./vim/plugin.toml ${HOME}/.vim/
+
 ENTRYPOINT ["/bin/bash"]

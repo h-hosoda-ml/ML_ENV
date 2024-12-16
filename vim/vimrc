@@ -1,0 +1,6 @@
+packadd vim-jetpack
+call jetpack#begin()
+        call jetpack#load_toml(expand($HOME). '/.vim/plugin.toml')
+        call jetpack#add('tani/vim-jetpack', {'opt': 1})
+call jetpack#end()
+                    
