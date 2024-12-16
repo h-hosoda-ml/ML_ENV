@@ -5,7 +5,7 @@ ENV HOME=/root
 
 SHELL ["/bin/bash", "-c"]
 
-COPY ./.bashrc $HOME
+COPY ./bash/.bashrc $HOME
 COPY ./requirements_build.txt $HOME
 COPY ./requirements_pip.txt $HOME
 
@@ -48,7 +48,9 @@ ENV HOME=/workdir
 SHELL ["/bin/bash", "-c"]
 
 # local環境から
-COPY ./requirements_runtime.txt /workdir
+COPY ./requirements_runtime.txt ${HOME}
+COPY ./tmux/.tmux.conf ${HOME}
+COPY ./vim ${HOME}/.vim
 
 # build環境から
 COPY --from=builder /root/.bashrc ${HOME}/.bashrc
@@ -60,10 +62,8 @@ COPY --from=builder /usr/local/man /usr/local/man
 RUN apt-get update \
 	&& apt-get -y upgrade \
 	&& cat ${HOME}/requirements_runtime.txt | xargs apt-get -y install \
-	&& source ${HOME}/.bashrc
-
-RUN curl -fLo ${HOME}/.vim/pack/jetpack/opt/vim-jetpack/plugin/jetpack.vim --create-dirs https://raw.githubusercontent.com/tani/vim-jetpack/master/plugin/jetpack.vim
-COPY ./vim/vimrc ${HOME}/.vim/
-COPY ./vim/plugin.toml ${HOME}/.vim/
+	&& source /root/.bashrc \
+	&& curl -fLo ${HOME}/.vim/pack/jetpack/opt/vim-jetpack/plugin/jetpack.vim --create-dirs https://raw.githubusercontent.com/tani/vim-jetpack/master/plugin/jetpack.vim \
+	&& mkdir ${HOME}/repos \
 
 ENTRYPOINT ["/bin/bash"]
