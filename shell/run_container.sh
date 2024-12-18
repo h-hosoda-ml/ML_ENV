@@ -3,15 +3,14 @@
 set -eu
 
 function usage() {
-cat <<-EOF
-    Usage: ./shell/run_container.sh {image_name} {container_name}
-    ----args----
-        image_name  Docker Image Name (Default: ml_image)
-        container_name  Docker ContainerName (Default: ml_container)
+cat <<EOF
+Usage: ./shell/run_container.sh {image_name} {container_name}
+----args----
+    image_name  Docker Image Name (Default: ml_image)
+    container_name  Docker ContainerName (Default: ml_container)
 
-    ---options----
-    -h|--help   show help
-
+---options----
+-h|--help   show help
 EOF
 }
 

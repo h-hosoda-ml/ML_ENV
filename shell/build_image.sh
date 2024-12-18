@@ -3,14 +3,13 @@
 set -eu
 
 function usage() {
-cat <<-EOF
-    Usage: ./shell/build_image.sh {image_name}
-    ----args----
-        image_name  Docker Image Name (Default: ml_image)
+cat <<EOF
+Usage: ./shell/build_image.sh {image_name}
+----args----
+    image_name  Docker Image Name (Default: ml_image)
 
-    ---options----
-    -h|--help   show help
-
+---options----
+-h|--help   show help
 EOF
 }
 
